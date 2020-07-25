@@ -1,37 +1,22 @@
-/**
- * 7
- * 2 3 0
- * 1 3 4 0
- * 1 2 0
- * 2 5 0
- * 4 0
- * 0
- * 0
- * 2
- * 1 6
- * 
- */
 #include <iostream>
 #include <vector>
 #include <queue>
 using namespace std;
-long long N, M, temp, totalTime;
-double believeCnt;
-vector<long long> Node[200'001];
-vector<long long> primary;
-vector<long long> timeOfThem;
+int N, M, temp, totalTime;
+vector<int> Node[200'001];
+vector<int> primaryNode;
+vector<int> timeOfThem;
 bool visited[200'001];
-bool isHeBelieve[200'001];
-bool isOK(long long next)
+bool isOK(int next)
 {
-    double everyOne = (double)(Node[next].size());
-    believeCnt = 0.0;
+    int everyOne = (Node[next].size());
+    int believeCnt = 0;
     for (auto near : Node[next])
     {
-        if (isHeBelieve[near])
+        if (visited[near])
         {
-            believeCnt += 1.0;
-            if (believeCnt >= (everyOne / 2.0))//2*believeCnt >= everyOne
+            believeCnt += 1;
+            if (2*believeCnt >= (everyOne))
             {
                 return true;
             }
@@ -41,21 +26,25 @@ bool isOK(long long next)
 }
 void BFS()
 {
-    queue<long long> Q;
-    queue<long long> Qtemp;
-    for (long long i = 0; i < M; i++)
+    queue<int> Q;
+    queue<int> Qtemp, Qtemp2;
+    //queue<pair<int, int>> Qlast;
+    for (int i = 0; i < M; i++)
     {
-        Q.push(primary[i]);
-        visited[primary[i]] = true;
-        isHeBelieve[primary[i]] = true;
+        Q.push(primaryNode[i]);
+        visited[primaryNode[i]] = true;
     }
+
+    bool changed = false;
     while (!Q.empty())
     {
-        long long currsizeQ = Q.size();
-        for (long long i = 0; i < currsizeQ; i++)
+        changed = false;
+        int currsizeQ = Q.size();
+        for (int i = 0; i < currsizeQ; i++)
         {
-            long long now = Q.front();
-            timeOfThem[now] = totalTime;
+            int now = Q.front();
+            if(timeOfThem[now] == -1)   timeOfThem[now] = totalTime;
+            Qtemp2.push(now);
             Q.pop();
             for (auto next : Node[now])
             {
@@ -64,28 +53,38 @@ void BFS()
                     Qtemp.push(next);
                 }
             }
+
             while (!Qtemp.empty())
             {
-                long long nowNode = Qtemp.front();
+                int nowNode = Qtemp.front();
                 Qtemp.pop();
                 Q.push(nowNode);
                 visited[nowNode] = true;
-                isHeBelieve[nowNode] = true;
             }
+
+            
+        }
+        if(!changed) break;
+
+        while(!Qtemp2.empty()){
+            Q.push(Qtemp2.front());
+            Qtemp2.pop();
         }
         totalTime += 1;
     }
 }
 int main()
 {
-    /*ios_base::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-*/
     cin >> N;
     timeOfThem.resize(N + 1);
-    fill(timeOfThem.begin(), timeOfThem.end(), -1);
-    for (long long i = 1; i <= N; i++)
+    for (int i = 0; i <= N; i++)
+    {
+        timeOfThem[i] = -1;
+    }
+    for (int i = 1; i <= N; i++)
     {
         while (true)
         {
@@ -101,13 +100,13 @@ int main()
         }
     }
     cin >> M;
-    for (long long i = 0; i < M; i++)
+    for (int i = 0; i < M; i++)
     {
         cin >> temp;
-        primary.push_back(temp);
+        primaryNode.push_back(temp);
     }
     BFS();
-    for (long long i = 1; i <= N; i++)
+    for (int i = 1; i <= N; i++)
     {
         if (i != N)
             cout << timeOfThem[i] << ' ';

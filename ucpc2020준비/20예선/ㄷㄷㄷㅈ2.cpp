@@ -4,10 +4,8 @@ using namespace std;
 int N;
 vector<int> graph[300001];
 
-int d_memo[300001][3];
 
 int c_memo[300001][3];// combination nCr = c_memo[n][r-1]
-bool d_check[300001][3];
 int combination(int n, int r) { 
     if(n == r || r == 0) return 1;
     if(c_memo[n][r-1]) return c_memo[n][r-1];
@@ -15,21 +13,14 @@ int combination(int n, int r) {
     return c_memo[n][r-1] = combination(n - 1, r) + combination(n - 1, r-1); 
 }
 
-int dfs(int n, int depth, bool visited[]){
-    if(d_check[n][depth]) return d_memo[n][depth];
-    d_check[n][depth] = true;
-    if(depth == 2){
-        
-        return d_memo[n][depth] = (graph[n].size() - 1);
-    } 
-
-
-    d_memo[n][depth] = 0;
+int dfs(int prev, int n, int depth){
+    if(depth == 2)  return graph[n].size()-1;
+    int re = 0;
     for(int next : graph[n]){
-        if(visited) continue;
-        d_memo[n][depth] += dfs(next, depth+1, visited);
+        if(next == prev) continue;
+        re += dfs(n, next, depth+1);
     }
-    return d_memo[n][depth];
+    return re;
 }
 
 int main(){
