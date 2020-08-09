@@ -3,7 +3,8 @@
 using namespace std;
 int N;
 vector<int> graph[300001];
-
+int d_memo[300001][4];
+bool d_check[300001][4];
 
 int c_memo[300001][3];// combination nCr = c_memo[n][r-1]
 int combination(int n, int r) { 
@@ -12,17 +13,40 @@ int combination(int n, int r) {
 
     return c_memo[n][r-1] = combination(n - 1, r) + combination(n - 1, r-1); 
 }
+bool visited[300001];
+int dfs(int n, int depth){
+    //cout << n << ',' << depth << '\n';
+    if(depth > 3) return 0;
+    if(d_check[n][depth]) return d_memo[n][depth];
+    d_check[n][depth] = true;
 
-int dfs(int prev, int n, int depth){
-    if(depth == 2)  return graph[n].size()-1;
-    int re = 0;
+    if(depth == 3) return d_memo[n][depth] = 1;
+
+    int re=0, tmp = - dfs(n, depth+2);
     for(int next : graph[n]){
-        if(next == prev) continue;
-        re += dfs(n, next, depth+1);
+        re += dfs(next, depth+1) + tmp + dfs(next, depth+3);
+        //cout << re << '\n';
     }
-    return re;
-}
 
+
+
+    return d_memo[n][depth] = re;
+}
+/*
+int dfs(int n, int depth){
+    if(depth > 3) return 0;
+    if(depth == 3) return 1;
+    int answer = 0;
+    int tmp = - dfs(n, depth+2);
+    //depth == 1 ? - dfs(n, depth+2) : 0;
+    for(int next : graph[n]){
+        answer += dfs(next, depth+1) + tmp + dfs(next, depth+3);
+    }
+    return answer;
+}*/
+/*
+    if(re <= 0) d_memo[n][depth] = 0;
+    else d_memo[n][depth] = re;*/
 int main(){
 
     cin >> N;
@@ -44,7 +68,7 @@ int main(){
             //cout << "type1: " << type1 << '\n';
         } 
 
-        type2 = type2 + dfs(-1, i, 0);
+        type2 = type2 + dfs(i, 0);
         
     }
     type1 = 3*type1;
