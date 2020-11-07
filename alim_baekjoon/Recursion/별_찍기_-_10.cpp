@@ -2,6 +2,7 @@
 char data[6561][6561];
 
 /*
+https://www.acmicpc.net/problem/2447
 재귀 방식으로 data에 프린트할 내용을 저장시킨다.
 */
 void save(int size, int x, int y){
