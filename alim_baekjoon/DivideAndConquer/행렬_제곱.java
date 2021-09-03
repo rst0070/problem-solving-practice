@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-public class Main{
+public class 행렬_제곱{
 
     /**
      * 행렬제곱 10830번
