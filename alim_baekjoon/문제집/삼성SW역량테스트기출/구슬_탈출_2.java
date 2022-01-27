@@ -89,8 +89,7 @@ class Main{
 
 
             while(true){
-                System.out.println(r.h + ", " + r.w + " | " + b.h + " | " + b.w);
-                
+
                 if(hole.equals(b)) break;//파란색이 나가면 끝
                 if(wall(b, dir[d])){// 파란색이 멈춤
 
@@ -103,7 +102,7 @@ class Main{
                      r.w += dir[d][1];
 
                 }else if(r.equals(new P(b.h + dir[d][0], b.w + dir[d][1]))){//파란색이 빨간색에 부딫힘
-                    if(hole.equals(r)) break;//빨간색이 나가면 파란색도 나가게 돼있음.
+                    if(hole.equals(r)) break;//빨간색이 나가면 파란색도 나가게 돼있음.(부딫힌 상태는 뒤따라 움직이는 상태)
                     if(wall(r, dir[d])){
                         result = Math.min(result, move(count + 1, r, b));
                         break;
@@ -128,7 +127,7 @@ class Main{
         {0, -1}
     };
 
-    static boolean wall(P pos, int[] d){
+    static boolean wall(P pos, int[] d){//벽에 막혀서 못 움직이는지 확인
         if(board[pos.h + d[0]][pos.w + d[1]] == '#') return true;
         return false;
     }
