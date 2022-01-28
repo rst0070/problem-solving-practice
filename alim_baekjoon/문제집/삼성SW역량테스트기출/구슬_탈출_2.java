@@ -87,25 +87,25 @@ class Main{
             P r = (P)red.clone();
             P b = (P)blue.clone();
 
-
+            moving:
             while(true){
 
-                if(hole.equals(b)) break;//파란색이 나가면 끝
+                if(hole.equals(b)) break moving;//파란색이 나가면 끝
                 if(wall(b, dir[d])){// 파란색이 멈춤
 
                     if(hole.equals(r)){result = count; break direction;}
                     if(wall(r, dir[d])){
                         result = Math.min(result, move(count + 1, r, b));
-                        break;
+                        break moving;
                     }
                      r.h += dir[d][0];
                      r.w += dir[d][1];
 
                 }else if(r.equals(new P(b.h + dir[d][0], b.w + dir[d][1]))){//파란색이 빨간색에 부딫힘
-                    if(hole.equals(r)) break;//빨간색이 나가면 파란색도 나가게 돼있음.(부딫힌 상태는 뒤따라 움직이는 상태)
+                    if(hole.equals(r)) break moving;//빨간색이 나가면 파란색도 나가게 돼있음.(부딫힌 상태는 뒤따라 움직이는 상태)
                     if(wall(r, dir[d])){
                         result = Math.min(result, move(count + 1, r, b));
-                        break;
+                        break moving;
                     }
                     
                     r.h += dir[d][0];
