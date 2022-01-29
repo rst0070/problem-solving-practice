@@ -1,6 +1,6 @@
 # ignore exe files
 *.exe
-
+*.class
 s_2020_1/
 
 .vscode/
