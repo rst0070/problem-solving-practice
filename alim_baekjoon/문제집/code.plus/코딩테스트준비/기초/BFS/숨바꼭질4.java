@@ -1,7 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.*;
 
 class 숨바꼭질4 {
     
+    /**
+     * visited의 응용
+     * String연산은 시간이 오래걸림
+     * stack같은 자료구조를 우선적으로 사용하자
+     */
+
     static final int MAX = 200000;
     static int[] visited = new int[MAX + 1];
     static{
@@ -9,10 +17,14 @@ class 숨바꼭질4 {
     }
     public static void main(String[] args) throws Exception{
         Scanner s = new Scanner(System.in);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         int n = s.nextInt();
         int K = s.nextInt();
         LinkedList<Node> queue = new LinkedList<Node>();
         LinkedList<Node> position = new LinkedList<Node>();
+        Stack<Integer> path = new Stack<Integer>();
+
 
         queue.add(new Node(n, 0));
         visited[n] = MAX + 1;
@@ -20,7 +32,16 @@ class 숨바꼭질4 {
         while(!queue.isEmpty()){
             Node now = queue.poll();
             if(now.p == K){
-                System.out.println(now.c);
+                bw.write(now.c + "\n");
+                int prev = now.p;
+                while(prev != MAX + 1){
+                    path.add(prev);
+                    prev = visited[prev];
+                }
+
+                while(!path.isEmpty()){
+                    bw.write(path.pop() + " ");
+                }
                 break;
             }
 
@@ -37,11 +58,8 @@ class 숨바꼭질4 {
         }
         s.close();
         
-        String way = "";
-        for(int i = K; i != MAX + 1; i = visited[i]){
-            way = i + " " + way;
-        }
-        System.out.println(way);
+        bw.flush();
+        bw.close();
     }
 
     static class Node{
