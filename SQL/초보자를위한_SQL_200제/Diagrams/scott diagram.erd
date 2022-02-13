@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="scott diagram">
+	<entities>
+		<data-source id="oracle_thin-17edf0d9d09-3a439b7cebd30a82">
+			<entity id="1" name="BONUS" fq-name="SCOTT.BONUS">
+				<path name="SCOTT"/>
+			</entity>
+			<entity id="2" name="DEPT" fq-name="SCOTT.DEPT">
+				<path name="SCOTT"/>
+			</entity>
+			<entity id="3" name="EMAIL" fq-name="SCOTT.EMAIL">
+				<path name="SCOTT"/>
+			</entity>
+			<entity id="4" name="EMP" fq-name="SCOTT.EMP">
+				<path name="SCOTT"/>
+			</entity>
+			<entity id="5" name="PHONE" fq-name="SCOTT.PHONE">
+				<path name="SCOTT"/>
+			</entity>
+			<entity id="6" name="SALGRADE" fq-name="SCOTT.SALGRADE">
+				<path name="SCOTT"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FK_DEPTNO" fq-name="SCOTT.EMP.FK_DEPTNO" type="fk" pk-ref="2" fk-ref="4"/>
+	</relations>
+</diagram>
