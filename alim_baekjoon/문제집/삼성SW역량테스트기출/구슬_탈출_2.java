@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-//https://www.acmicpc.net/problem/13460
 /**
  * 10번 이하로 움직이는 모든 경우는 4^10 이다.
  * 시간제한이 2초이기 때문에 완전탐색은 불가능
@@ -11,9 +10,12 @@ import java.util.*;
  * 
  * 직관적이고 접근이 편하게 데이터를 만들기
  * 
+ * 이 방식으로는 아직 해결하지 못함 ㅠ
+ * 무엇이 문제인가?
+ * 
  */
 
-class Main{
+class 구슬_탈출_2{
     static class P{
         int h, w;
         public P(int h, int w){
@@ -36,10 +38,15 @@ class Main{
 
     static int H, W;
     static char[][] board;
-    static P hole;//(h, w)
 
-    static boolean[][][][] visited = new boolean[10][10][10][10];
+    static  int[][][][] memo = new int[10][10][10][10];
     // [red h][red w][blue h][blue w]
+    static{
+        for(int a = 0; a < 10; a++)
+            for(int b = 0; b < 10; b++)
+                for(int c = 0; c < 10; c++)
+                    for(int d = 0; d < 10; d++) memo[a][b][c][d] = -1;
+    }
 
     public static void main(String[] args) throws Exception{
 
@@ -56,68 +63,35 @@ class Main{
         for(int h = 0; h < H; h++){
             board[h] = br.readLine().toCharArray();
             for(int w = 0; w < W; w++){
-                if(board[h][w] == 'R'){
-                    red = new P(h, w);
-                    board[h][w] = '.';
-                }
-                if(board[h][w] == 'B'){
-                    blue = new P(h, w);
-                    board[h][w] = '.';
-                }
-                if(board[h][w] == 'O'){
-                    hole = new P(h, w);
-                }
+                if(board[h][w] == 'R'){red = new P(h, w); board[h][w] = '.';}
+                if(board[h][w] == 'B'){blue = new P(h, w); board[h][w] = '.';}
             }
         }
 
-        int result = move(1, red, blue);
-        if(result == 11) result = -1;
+        int result = dp(0, red, blue);
+        if(result >= 11) result = -1;
 
         System.out.println(result);
 
     }
 
-    static int move(int count, P red, P blue){
+    /**
+     * 
+     * @param count
+     * @param red
+     * @param blue
+     * @return
+     */
+    static int dp(int count, P R, P B){
+        if(count > 9) return 11;
+        if(memo[R.h][R.w][B.h][B.w] != -1) return memo[R.h][R.w][B.h][B.w];
+
         int result = 11;
-        if(count > 10 || visited[red.h][red.w][blue.h][blue.w]) return result;
-        visited[red.h][red.w][blue.h][blue.w] = true;
-
-        direction:
         for(int d = 0; d < 4; d++){
-            P r = (P)red.clone();
-            P b = (P)blue.clone();
 
-            moving:
-            while(true){
-
-                if(hole.equals(b)) break moving;//파란색이 나가면 끝
-                if(wall(b, dir[d])){// 파란색이 멈춤
-
-                    if(hole.equals(r)){result = count; break direction;}
-                    if(wall(r, dir[d])){
-                        result = Math.min(result, move(count + 1, r, b));
-                        break moving;
-                    }
-                     r.h += dir[d][0];
-                     r.w += dir[d][1];
-
-                }else if(r.equals(new P(b.h + dir[d][0], b.w + dir[d][1]))){//파란색이 빨간색에 부딫힘
-                    if(hole.equals(r)) break moving;//빨간색이 나가면 파란색도 나가게 돼있음.(부딫힌 상태는 뒤따라 움직이는 상태)
-                    if(wall(r, dir[d])){
-                        result = Math.min(result, move(count + 1, r, b));
-                        break moving;
-                    }
-                    
-                    r.h += dir[d][0];
-                    r.w += dir[d][1];
-                }else {
-                    b.h += dir[d][0];
-                    b.w += dir[d][1];
-                }
-            }
         }
 
-        return result;
+        return memo[R.h][R.w][B.h][B.w] = result;
     }
 
     static int[][] dir = {
@@ -127,8 +101,15 @@ class Main{
         {0, -1}
     };
 
-    static boolean wall(P pos, int[] d){//벽에 막혀서 못 움직이는지 확인
-        if(board[pos.h + d[0]][pos.w + d[1]] == '#') return true;
-        return false;
+    //해당  p가 구멍으로 떨어지면 true 반환
+    static boolean move(P p, int d, P other){
+        int nh = p.h + dir[d][0];
+        int nw = p.w + dir[d][1];
+        if(nh < 0 || nh  >= H || nw < 0 || nw >= W || (nh == other.h && nw == other.w) || board[nh][nw] == '#') return false;
+        
+        p.h = nh;
+        p.w = nw;
+        if(board[nh][nw] == 'O') return true;
+        return move(p, d, other);
     }
 }
