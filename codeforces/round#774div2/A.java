@@ -15,13 +15,4 @@ public class A {
         bw.flush();
         bw.close();
     }
-
-    /*
-    static long find(long N, long n, long s){
-        if(n == 0) return 0;
-
-        long pow = N * N;
-        if(calculed >= 0) return find(N, n - 1, calculed) + 1;
-        return 0;
-    }*/
 }
