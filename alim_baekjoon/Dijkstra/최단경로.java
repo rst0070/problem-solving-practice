@@ -5,6 +5,12 @@ public class 최단경로 {
 
     //https://www.acmicpc.net/problem/1753
 
+    /**
+     * 다익스트라
+     * https://m.blog.naver.com/ndb796/221234424646
+     */
+
+
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

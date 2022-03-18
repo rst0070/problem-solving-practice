@@ -1,19 +1,18 @@
 {
 	"folders": {},
 	"connections": {
-		"oracle_thin-17edf0c5cd4-fa99d2ffbc1e97f": {
+		"oracle_thin-17edf0d9d09-3a439b7cebd30a82": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "RSTDB_SCOTT",
+			"name": "RSTDB_scott",
 			"save-password": true,
 			"read-only": false,
 			"configuration": {
-				"host": "localhost",
-				"port": "1521",
 				"database": "RSTDB",
 				"url": "jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = RST) ) )",
 				"type": "dev",
 				"provider-properties": {
+					"@dbeaver-connection-type@": "TNS",
 					"show-only-one-schema@": "false",
 					"@dbeaver-check-schema-content@": "false",
 					"@dbeaver-always-show-dba@": "false",
@@ -24,11 +23,37 @@
 					"@dbeaver-use-meta-optimizer@": "false",
 					"@dbeaver-meta-use-alternative-table-query@": "false",
 					"oracle.meta-search-in-synonyms": "false",
-					"@dbeaver-connection-type@": "TNS",
-					"@dbeaver-sid-service@": "SERVICE",
-					"@dbeaver-tns-path@": "D:\\ORACLE_CLIENT"
+					"@dbeaver-tns-path@": "D:\\ORACLE_CLIENT",
+					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native"
+			}
+		},
+		"postgres-jdbc-17f45a5323f-4068a3afbb74a71b": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "5432",
+				"database": "postgres",
+				"url": "jdbc:postgresql://localhost:5432/postgres",
+				"home": "postgresql-x64-14",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
+				"auth-model": "native",
+				"handlers": {}
 			}
 		}
 	},
