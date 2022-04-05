@@ -52,6 +52,19 @@
 					"postgresql.dd.plain.string": "false",
 					"postgresql.dd.tag.string": "false"
 				},
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-17fb07f516c-1488fef9fab5c3ab": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "jsp_memo.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "D:\\DevWork\\workspace_folders\\JSP_memo_app\\jsp_memo.db",
+				"url": "jdbc:sqlite:D:\\DevWork\\workspace_folders\\JSP_memo_app\\jsp_memo.db",
+				"type": "dev",
 				"auth-model": "native",
 				"handlers": {}
 			}

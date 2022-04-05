@@ -38,8 +38,8 @@
 			"configuration": {
 				"host": "localhost",
 				"port": "5432",
-				"database": "postgres",
-				"url": "jdbc:postgresql://localhost:5432/postgres",
+				"database": "dvdrental",
+				"url": "jdbc:postgresql://localhost:5432/dvdrental",
 				"home": "postgresql-x64-14",
 				"type": "dev",
 				"provider-properties": {
