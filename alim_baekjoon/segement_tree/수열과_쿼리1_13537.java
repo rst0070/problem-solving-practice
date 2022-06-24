@@ -5,6 +5,9 @@ public class 수열과_쿼리1_13537 {
 
     static ArrayList<Integer>[] tree;
 
+    /**
+     * 구간 노드가 해당 구간의 정렬된 값을 가지고 있으면 된다.
+     */
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
