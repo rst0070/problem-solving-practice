@@ -1,2 +1,2 @@
 # problem-solving-practices
-This is my codes to practice PS
+This repo is for my codes to practice PS
