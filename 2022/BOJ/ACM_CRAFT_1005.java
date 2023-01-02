@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Main{
+public class ACM_CRAFT_1005{
 
     /**
      * 각 건물이 건설되는데 필요한 건물들을 저장해두고
